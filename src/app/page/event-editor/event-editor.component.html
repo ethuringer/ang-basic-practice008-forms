@@ -26,7 +26,7 @@
       </div>
       <div class="form-group">
         <label for="">Country</label>
-        <input name="country" [(ngModel)]="event.location.country" type="text" class="form-control" pattern="^[A-Z]{5,25}" required>
+        <input name="country" [(ngModel)]="event.location.country" type="text" class="form-control" pattern="[A-Z\s]{5,25}" required>
         <div [hidden]="eventForm.controls.country?.valid" class="error-message">
           Country must be minimum 5 and maximum 25 characters and contains only capital letter.
         </div>

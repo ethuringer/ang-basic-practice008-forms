@@ -54,11 +54,6 @@ export class EventService {
     );
   }
 
-  get(id: number): Observable<Event> {
-    id = typeof id === 'string' ? parseInt(id, 10) : id;
-    return this.http.get<Event>(`${this.jsonUrl}/${id}`);
-  }
-
   create(event: Event): void {
     this.http.post<Event>(this.jsonUrl, event).subscribe(
       () => this.getAll()
@@ -77,39 +72,14 @@ export class EventService {
     );
   }
 
-  // get(id: number): Observable<Event> {
-  //   id = typeof id === 'string' ? parseInt(id, 10) : id;
-  //   const ev: Event | undefined = this.list.find( item => item.id === id );
-  //   if (ev) {
-  //     return of(ev);
-  //   }
+  get(id: number): Observable<Event> {
+    id = typeof id === 'string' ? parseInt(id, 10) : id;
+    
+    if (id===0) {
+      return of(new Event());
+    }
+    return this.http.get<Event>(`${this.jsonUrl}/${id}`);
 
-  //   return of(new Event());
-  // }
+  }
 
-  // create(event: Event): Observable<Event> {
-  //   this.list.unshift(event);
-  //   this.getAll();
-  //   return of(new Event());
-  // }
-
-
-  // update(event: Event): Observable<Event> {
-  //   const index: number = this.list.findIndex( item => item.id === event.id );
-  //   this.list.splice(index, 1, event);
-  //   this.getAll();
-  //   return of(this.list[index]);
-  // }
-
-
-  // remove(event: Event): void {
-  //   let index = 0;
-  //   for (let i = 0; i < this.list.length; i++) {
-  //     if (event.id === this.list[i].id) {
-  //       index = i;
-  //     }
-  //   }
-
-  //   this.list.splice(index, 1);
-  // }
 }

@@ -18,6 +18,7 @@ export class EventEditorComponent implements OnInit {
   event$: Observable<Event> = this.activatedRoute.params.pipe(
     switchMap(params => this.eventService.get(params.id))
   );
+  event: Event = new Event();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,20 +31,11 @@ export class EventEditorComponent implements OnInit {
   onUpdate(form: NgForm, event: Event): void {
     if (event.id !== 0) {
       this.eventService.update(event);
-      this.router.navigate(['']);
-    } else {
-      this.eventService.create(event);
-           this.router.navigate(['']);
-          }
+    this.router.navigate(['']);
+    } 
+    this.eventService.create(event);
+    this.router.navigate(['']);
+          
   }
   
-  // onUpdate(form: NgForm, event: Event): void {
-  //   if (event.id !== 0) {
-  //     this.eventService.update(event).subscribe(
-  //       ev => this.router.navigate([''])
-  //     );
-  //   }
-  //   
-  // }
-
 }
